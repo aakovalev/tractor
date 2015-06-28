@@ -7,11 +7,6 @@ public class Tractor implements Movable {
     private int positionX;
     private int positionY;
 
-    @Override
-    public void move() {
-        moveForwards();
-    }
-
     public Tractor() {
         this(Orientation.NORTH);
     }
@@ -20,15 +15,20 @@ public class Tractor implements Movable {
         this.orientation = orientation;
     }
 
+    public void apply(Command command) {
+        command.execute(this);
+    }
+
     public void apply(String command) {
-        if (command == "F") {
-            move(new MoveForwardCommand());
-        } else if (command == "T") {
+        if ("F".equals(command)) {
+            apply(new MoveForwardCommand());
+        } else if ("T".equals(command)) {
             turnClockwise();
         }
     }
 
-    public void moveForwards() {
+    @Override
+    public void move() {
         if (orientation == Orientation.NORTH) {
             positionY = positionY + 1;
         } else if (orientation == Orientation.EAST) {
@@ -65,10 +65,6 @@ public class Tractor implements Movable {
 
     public Orientation getOrientation() {
         return orientation;
-    }
-
-    public void move(Command command) {
-        command.execute(this);
     }
 
 }

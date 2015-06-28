@@ -10,7 +10,7 @@ public class MoveForwardCommandTest {
         Orientation orientation = Orientation.NORTH;
         int initialY = 0;
         Tractor tractor = new Tractor(orientation);
-        tractor.move(new MoveForwardCommand());
+        tractor.apply(new MoveForwardCommand());
         assertEquals(initialY + 1, tractor.getPositionY());
     }
 }
