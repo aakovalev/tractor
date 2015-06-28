@@ -10,7 +10,7 @@ public class TractorTest {
     @Test
     public void testShouldMoveForward() {
         Tractor tractor = new Tractor();
-        tractor.move("F");
+        tractor.apply("F");
         assertEquals(0, tractor.getPositionX());
         assertEquals(1, tractor.getPositionY());
     }
@@ -18,33 +18,33 @@ public class TractorTest {
     @Test
     public void testShouldTurn() {
         Tractor tractor = new Tractor();
-        tractor.move("T");
+        tractor.apply("T");
         assertEquals(Orientation.EAST, tractor.getOrientation());
-        tractor.move("T");
+        tractor.apply("T");
         assertEquals(Orientation.SOUTH, tractor.getOrientation());
-        tractor.move("T");
+        tractor.apply("T");
         assertEquals(Orientation.WEST, tractor.getOrientation());
-        tractor.move("T");
+        tractor.apply("T");
         assertEquals(NORTH, tractor.getOrientation());
     }
 
     @Test
     public void testShouldTurnAndMoveInTheRightDirection() {
         Tractor tractor = new Tractor(NORTH);
-        tractor.move("T");
-        tractor.move("F");
+        tractor.apply("T");
+        tractor.apply("F");
         assertEquals(1, tractor.getPositionX());
         assertEquals(0, tractor.getPositionY());
-        tractor.move("T");
-        tractor.move("F");
+        tractor.apply("T");
+        tractor.apply("F");
         assertEquals(1, tractor.getPositionX());
         assertEquals(-1, tractor.getPositionY());
-        tractor.move("T");
-        tractor.move("F");
+        tractor.apply("T");
+        tractor.apply("F");
         assertEquals(0, tractor.getPositionX());
         assertEquals(-1, tractor.getPositionY());
-        tractor.move("T");
-        tractor.move("F");
+        tractor.apply("T");
+        tractor.apply("F");
         assertEquals(0, tractor.getPositionX());
         assertEquals(0, tractor.getPositionY());
     }
@@ -52,13 +52,13 @@ public class TractorTest {
     @Test (expected = TractorInDitchException.class)
     public void testShouldThrowExceptionIfFallsOffPlateau() {
         Tractor tractor = new Tractor();
-        tractor.move("F");
-        tractor.move("F");
-        tractor.move("F");
-        tractor.move("F");
-        tractor.move("F");
+        tractor.apply("F");
+        tractor.apply("F");
+        tractor.apply("F");
+        tractor.apply("F");
+        tractor.apply("F");
 
         // this move makes tractor is out of the game field
-        tractor.move("F");
+        tractor.apply("F");
     }
 }
