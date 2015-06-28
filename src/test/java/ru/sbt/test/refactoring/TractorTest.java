@@ -11,8 +11,7 @@ public class TractorTest {
     public void testShouldMoveForward() {
         Tractor tractor = new Tractor();
         tractor.apply(new MoveForward());
-        assertEquals(0, tractor.getPositionX());
-        assertEquals(1, tractor.getPositionY());
+        assertEquals(new Position(0, 1), tractor.getPosition());
     }
 
     @Test
@@ -20,10 +19,13 @@ public class TractorTest {
         Tractor tractor = new Tractor();
         tractor.apply("T");
         assertEquals(Orientation.EAST, tractor.getOrientation());
+
         tractor.apply("T");
         assertEquals(Orientation.SOUTH, tractor.getOrientation());
+
         tractor.apply("T");
         assertEquals(Orientation.WEST, tractor.getOrientation());
+
         tractor.apply("T");
         assertEquals(NORTH, tractor.getOrientation());
     }
@@ -33,20 +35,19 @@ public class TractorTest {
         Tractor tractor = new Tractor(NORTH);
         tractor.apply("T");
         tractor.apply(new MoveForward());
-        assertEquals(1, tractor.getPositionX());
-        assertEquals(0, tractor.getPositionY());
+        assertEquals(new Position(1, 0), tractor.getPosition());
+
         tractor.apply("T");
         tractor.apply(new MoveForward());
-        assertEquals(1, tractor.getPositionX());
-        assertEquals(-1, tractor.getPositionY());
+        assertEquals(new Position(1, -1), tractor.getPosition());
+
         tractor.apply("T");
         tractor.apply(new MoveForward());
-        assertEquals(0, tractor.getPositionX());
-        assertEquals(-1, tractor.getPositionY());
+        assertEquals(new Position(0, -1), tractor.getPosition());
+
         tractor.apply("T");
         tractor.apply(new MoveForward());
-        assertEquals(0, tractor.getPositionX());
-        assertEquals(0, tractor.getPositionY());
+        assertEquals(new Position(0, 0), tractor.getPosition());
     }
 
     @Test (expected = TractorInDitchException.class)

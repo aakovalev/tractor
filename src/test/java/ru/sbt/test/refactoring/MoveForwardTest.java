@@ -4,13 +4,16 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class MoveForwardCommandTest {
+public class MoveForwardTest {
     @Test
     public void canMoveForward() throws Exception {
         Orientation orientation = Orientation.NORTH;
-        int initialY = 0;
         Tractor tractor = new Tractor(orientation);
+        Position originalPosition = tractor.getPosition();
+
         tractor.apply(new MoveForward());
-        assertEquals(initialY + 1, tractor.getPositionY());
+
+        Position expectedPosition = new Position(originalPosition.getX(), originalPosition.getY() + 1);
+        assertEquals(expectedPosition, tractor.getPosition());
     }
 }
