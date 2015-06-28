@@ -21,7 +21,7 @@ public class Tractor implements Movable {
 
     public void apply(String command) {
         if ("F".equals(command)) {
-            apply(new MoveForwardCommand());
+            apply(new MoveForward());
         } else if ("T".equals(command)) {
             turnClockwise();
         }
