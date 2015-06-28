@@ -24,35 +24,37 @@ public class TractorTest {
     @Test
     public void testShouldTurn() {
         Tractor tractor = new Tractor(field);
-        tractor.apply("T");
+        Turn turn = new Turn(tractor);
+        tractor.apply(turn);
         assertEquals(Orientation.EAST, tractor.getOrientation());
 
-        tractor.apply("T");
+        tractor.apply(turn);
         assertEquals(Orientation.SOUTH, tractor.getOrientation());
 
-        tractor.apply("T");
+        tractor.apply(turn);
         assertEquals(Orientation.WEST, tractor.getOrientation());
 
-        tractor.apply("T");
+        tractor.apply(turn);
         assertEquals(NORTH, tractor.getOrientation());
     }
 
     @Test
     public void testShouldTurnAndMoveInTheRightDirection() {
         Tractor tractor = new Tractor(field, NORTH);
-        tractor.apply("T");
+        Turn turn = new Turn(tractor);
+        tractor.apply(turn);
         tractor.apply(new MoveForward());
         assertEquals(new Position(1, 0), tractor.getPosition());
 
-        tractor.apply("T");
+        tractor.apply(turn);
         tractor.apply(new MoveForward());
         assertEquals(new Position(1, -1), tractor.getPosition());
 
-        tractor.apply("T");
+        tractor.apply(turn);
         tractor.apply(new MoveForward());
         assertEquals(new Position(0, -1), tractor.getPosition());
 
-        tractor.apply("T");
+        tractor.apply(turn);
         tractor.apply(new MoveForward());
         assertEquals(new Position(0, 0), tractor.getPosition());
     }

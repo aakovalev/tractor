@@ -2,7 +2,7 @@ package ru.sbt.test.refactoring;
 
 import static ru.sbt.test.refactoring.Orientation.NORTH;
 
-public class Tractor implements Positionable, Movable {
+public class Tractor implements Positionable, Movable, Turnable {
 
     private Field field;
     private Orientation orientation = NORTH;
@@ -26,14 +26,6 @@ public class Tractor implements Positionable, Movable {
         command.execute(this);
     }
 
-    public void apply(String command) {
-        if ("F".equals(command)) {
-            apply(new MoveForward());
-        } else if ("T".equals(command)) {
-            turnClockwise();
-        }
-    }
-
     @Override
     public void move() {
         if (orientation == NORTH) {
@@ -53,6 +45,11 @@ public class Tractor implements Positionable, Movable {
 
     private boolean isOutOfField() {
         return position.getX() > field.getWidth() || position.getY() > field.getHeight();
+    }
+
+    @Override
+    public void turn() {
+        turnClockwise();
     }
 
     public void turnClockwise() {
