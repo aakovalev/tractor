@@ -1,16 +1,24 @@
 package ru.sbt.test.refactoring;
 
+import static ru.sbt.test.refactoring.Orientation.NORTH;
+
 public class Tractor implements Positionable, Movable {
 
-    int[] field = new int[]{5, 5}; // to-do move to another class?
-    Orientation orientation = Orientation.NORTH;
+    private Field field;
+    private Orientation orientation = NORTH;
     private Position position = new Position(0, 0);
 
-    public Tractor() {
-        this(Orientation.NORTH);
+    public Tractor(Field field) {
+        this(field, new Position(0, 0), NORTH);
     }
 
-    public Tractor(Orientation orientation) {
+    public Tractor(Field field, Orientation orientation) {
+        this(field, new Position(0, 0), orientation);
+    }
+
+    public Tractor(Field field, Position position, Orientation orientation) {
+        this.field = field;
+        this.position = position;
         this.orientation = orientation;
     }
 
@@ -28,7 +36,7 @@ public class Tractor implements Positionable, Movable {
 
     @Override
     public void move() {
-        if (orientation == Orientation.NORTH) {
+        if (orientation == NORTH) {
             setPosition(new Position(position.getX(), position.getY() + 1));
         } else if (orientation == Orientation.EAST) {
             setPosition(new Position(position.getX() + 1, position.getY()));
@@ -37,29 +45,26 @@ public class Tractor implements Positionable, Movable {
         } else if (orientation == Orientation.WEST) {
             setPosition(new Position(position.getX() - 1, position.getY()));
         }
-        if (position.getX() > field[0] || position.getY() > field[1]) {
+
+        if (isOutOfField()) {
             throw new TractorInDitchException();
         }
     }
 
+    private boolean isOutOfField() {
+        return position.getX() > field.getWidth() || position.getY() > field.getHeight();
+    }
+
     public void turnClockwise() {
-        if (orientation == Orientation.NORTH) {
+        if (orientation == NORTH) {
             orientation = Orientation.EAST;
         } else if (orientation == Orientation.EAST) {
             orientation = Orientation.SOUTH;
         } else if (orientation == Orientation.SOUTH) {
             orientation = Orientation.WEST;
         } else if (orientation == Orientation.WEST) {
-            orientation = Orientation.NORTH;
+            orientation = NORTH;
         }
-    }
-
-    public int getPositionX() {
-        return position.getX();
-    }
-
-    public int getPositionY() {
-        return position.getY();
     }
 
     public Orientation getOrientation() {
