@@ -2,7 +2,6 @@ package ru.sbt.test.refactoring;
 
 public class Tractor implements Movable {
 
-    private int[] position = new int[]{0, 0};
     int[] field = new int[]{5, 5}; // to-do move to another class?
     Orientation orientation = Orientation.NORTH;
     private int positionX;
