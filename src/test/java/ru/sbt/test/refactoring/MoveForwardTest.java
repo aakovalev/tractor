@@ -11,7 +11,8 @@ public class MoveForwardTest {
         Tractor tractor = new Tractor(new Field(5, 5), NORTH);
         Position originalPosition = tractor.getPosition();
 
-        tractor.apply(new MoveForward());
+        MoveForward moveForward = new MoveForward(tractor);
+        moveForward.execute();
 
         Position expectedPosition = new Position(originalPosition.getX(), originalPosition.getY() + 1);
         assertEquals(expectedPosition, tractor.getPosition());

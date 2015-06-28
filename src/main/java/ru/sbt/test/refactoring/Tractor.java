@@ -5,8 +5,8 @@ import static ru.sbt.test.refactoring.Orientation.NORTH;
 public class Tractor implements Positionable, Movable, Turnable {
 
     private Field field;
-    private Orientation orientation = NORTH;
-    private Position position = new Position(0, 0);
+    private Orientation orientation;
+    private Position position;
 
     public Tractor(Field field) {
         this(field, new Position(0, 0), NORTH);
@@ -20,10 +20,6 @@ public class Tractor implements Positionable, Movable, Turnable {
         this.field = field;
         this.position = position;
         this.orientation = orientation;
-    }
-
-    public void apply(Command command) {
-        command.execute(this);
     }
 
     @Override
@@ -52,7 +48,7 @@ public class Tractor implements Positionable, Movable, Turnable {
         turnClockwise();
     }
 
-    public void turnClockwise() {
+    private void turnClockwise() {
         if (orientation == NORTH) {
             orientation = Orientation.EAST;
         } else if (orientation == Orientation.EAST) {

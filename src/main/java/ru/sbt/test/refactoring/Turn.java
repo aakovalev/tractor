@@ -8,7 +8,7 @@ public class Turn implements Command {
     }
 
     @Override
-    public void execute(Movable unit) {
+    public void execute() {
         turnable.turn();
     }
 }

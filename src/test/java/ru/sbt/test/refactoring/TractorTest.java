@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static ru.sbt.test.refactoring.Orientation.NORTH;
+import static ru.sbt.test.refactoring.Orientation.*;
 
 public class TractorTest {
     private Field field;
@@ -17,7 +17,8 @@ public class TractorTest {
     @Test
     public void testShouldMoveForward() {
         Tractor tractor = new Tractor(field);
-        tractor.apply(new MoveForward());
+        MoveForward moveForward = new MoveForward(tractor);
+        moveForward.execute();
         assertEquals(new Position(0, 1), tractor.getPosition());
     }
 
@@ -25,16 +26,16 @@ public class TractorTest {
     public void testShouldTurn() {
         Tractor tractor = new Tractor(field);
         Turn turn = new Turn(tractor);
-        tractor.apply(turn);
-        assertEquals(Orientation.EAST, tractor.getOrientation());
+        turn.execute();
+        assertEquals(EAST, tractor.getOrientation());
 
-        tractor.apply(turn);
-        assertEquals(Orientation.SOUTH, tractor.getOrientation());
+        turn.execute();
+        assertEquals(SOUTH, tractor.getOrientation());
 
-        tractor.apply(turn);
-        assertEquals(Orientation.WEST, tractor.getOrientation());
+        turn.execute();
+        assertEquals(WEST, tractor.getOrientation());
 
-        tractor.apply(turn);
+        turn.execute();
         assertEquals(NORTH, tractor.getOrientation());
     }
 
@@ -42,42 +43,43 @@ public class TractorTest {
     public void testShouldTurnAndMoveInTheRightDirection() {
         Tractor tractor = new Tractor(field, NORTH);
         Turn turn = new Turn(tractor);
-        tractor.apply(turn);
-        tractor.apply(new MoveForward());
+        turn.execute();
+        MoveForward moveForward = new MoveForward(tractor);
+        moveForward.execute();
         assertEquals(new Position(1, 0), tractor.getPosition());
 
-        tractor.apply(turn);
-        tractor.apply(new MoveForward());
+        turn.execute();
+        moveForward.execute();
         assertEquals(new Position(1, -1), tractor.getPosition());
 
-        tractor.apply(turn);
-        tractor.apply(new MoveForward());
+        turn.execute();
+        moveForward.execute();
         assertEquals(new Position(0, -1), tractor.getPosition());
 
-        tractor.apply(turn);
-        tractor.apply(new MoveForward());
+        turn.execute();
+        moveForward.execute();
         assertEquals(new Position(0, 0), tractor.getPosition());
     }
 
     @Test (expected = TractorInDitchException.class)
     public void testShouldThrowExceptionIfFallsOffPlateau() {
         Tractor tractor = new Tractor(field);
-        MoveForward forward = new MoveForward();
-        tractor.apply(forward);
-        tractor.apply(forward);
-        tractor.apply(forward);
-        tractor.apply(forward);
-        tractor.apply(forward);
+        MoveForward forward = new MoveForward(tractor);
+        forward.execute();
+        forward.execute();
+        forward.execute();
+        forward.execute();
+        forward.execute();
 
         // this move makes tractor is out of the game field
-        tractor.apply(forward);
+        forward.execute();
     }
 
     @Test
     public void testShouldBeSetAtSpecifiedPosition() throws Exception {
         Tractor tractor = new Tractor(field);
-        tractor.setPosition(new Position(1,2));
+        tractor.setPosition(new Position(1, 2));
 
-        assertEquals(new Position(1,2), tractor.getPosition());
+        assertEquals(new Position(1, 2), tractor.getPosition());
     }
 }
