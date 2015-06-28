@@ -61,4 +61,12 @@ public class TractorTest {
         // this move makes tractor is out of the game field
         tractor.apply(new MoveForward());
     }
+
+    @Test
+    public void testShouldBeSetAtSpecifiedPosition() throws Exception {
+        Tractor tractor = new Tractor();
+        tractor.setPosition(new Position(1,2));
+
+        assertEquals(new Position(1,2), tractor.getPosition());
+    }
 }

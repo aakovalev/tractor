@@ -1,11 +1,10 @@
 package ru.sbt.test.refactoring;
 
-public class Tractor implements Movable {
+public class Tractor implements Positionable, Movable {
 
     int[] field = new int[]{5, 5}; // to-do move to another class?
     Orientation orientation = Orientation.NORTH;
-    private int positionX;
-    private int positionY;
+    private Position position = new Position(0, 0);
 
     public Tractor() {
         this(Orientation.NORTH);
@@ -30,15 +29,15 @@ public class Tractor implements Movable {
     @Override
     public void move() {
         if (orientation == Orientation.NORTH) {
-            positionY = positionY + 1;
+            setPosition(new Position(position.getX(), position.getY() + 1));
         } else if (orientation == Orientation.EAST) {
-            positionX = positionX + 1;
+            setPosition(new Position(position.getX() + 1, position.getY()));
         } else if (orientation == Orientation.SOUTH) {
-            positionY = positionY - 1;
+            setPosition(new Position(position.getX(), position.getY() - 1));
         } else if (orientation == Orientation.WEST) {
-            positionX = positionX - 1;
+            setPosition(new Position(position.getX() - 1, position.getY()));
         }
-        if (positionX > field[0] || positionY > field[1]) {
+        if (position.getX() > field[0] || position.getY() > field[1]) {
             throw new TractorInDitchException();
         }
     }
@@ -56,15 +55,22 @@ public class Tractor implements Movable {
     }
 
     public int getPositionX() {
-        return positionX;
+        return position.getX();
     }
 
     public int getPositionY() {
-        return positionY;
+        return position.getY();
     }
 
     public Orientation getOrientation() {
         return orientation;
     }
 
+    public void setPosition(Position newPosition) {
+        this.position = newPosition;
+    }
+
+    public Position getPosition() {
+        return position;
+    }
 }
