@@ -1,14 +1,13 @@
 package ru.sbt.test.refactoring;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
 import static ru.sbt.test.refactoring.Orientation.NORTH;
 
-/**
- * @author Ben
- */
-public class TractorTest extends TestCase {
+public class TractorTest {
 
+    @Test
     public void testShouldMoveForward() {
         Tractor tractor = new Tractor();
         tractor.move("F");
@@ -16,6 +15,7 @@ public class TractorTest extends TestCase {
         assertEquals(1, tractor.getPositionY());
     }
 
+    @Test
     public void testShouldTurn() {
         Tractor tractor = new Tractor();
         tractor.move("T");
@@ -28,6 +28,7 @@ public class TractorTest extends TestCase {
         assertEquals(NORTH, tractor.getOrientation());
     }
 
+    @Test
     public void testShouldTurnAndMoveInTheRightDirection() {
         Tractor tractor = new Tractor(NORTH);
         tractor.move("T");
@@ -48,6 +49,7 @@ public class TractorTest extends TestCase {
         assertEquals(0, tractor.getPositionY());
     }
 
+    @Test (expected = TractorInDitchException.class)
     public void testShouldThrowExceptionIfFallsOffPlateau() {
         Tractor tractor = new Tractor();
         tractor.move("F");
@@ -55,10 +57,8 @@ public class TractorTest extends TestCase {
         tractor.move("F");
         tractor.move("F");
         tractor.move("F");
-        try {
-            tractor.move("F");
-            fail("Tractor was expected to fall off the plateau");
-        } catch (TractorInDitchException expected) {
-        }
+
+        // this move makes tractor is out of the game field
+        tractor.move("F");
     }
 }
