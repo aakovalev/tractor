@@ -42,37 +42,41 @@ public class TractorTest {
     @Test
     public void testShouldTurnAndMoveInTheRightDirection() {
         Tractor tractor = new Tractor(field, NORTH);
-        Turn turn = new Turn(tractor);
-        turn.execute();
-        MoveForward moveForward = new MoveForward(tractor);
-        moveForward.execute();
+
+        turnAndMove(tractor);
         assertEquals(new Position(1, 0), tractor.getPosition());
 
-        turn.execute();
-        moveForward.execute();
+        turnAndMove(tractor);
         assertEquals(new Position(1, -1), tractor.getPosition());
 
-        turn.execute();
-        moveForward.execute();
+        turnAndMove(tractor);
         assertEquals(new Position(0, -1), tractor.getPosition());
 
+        turnAndMove(tractor);
+        assertEquals(new Position(0, 0), tractor.getPosition());
+    }
+
+    private void turnAndMove(Tractor tractor) {
+        Turn turn = new Turn(tractor);
+        MoveForward moveForward = new MoveForward(tractor);
         turn.execute();
         moveForward.execute();
-        assertEquals(new Position(0, 0), tractor.getPosition());
     }
 
     @Test (expected = TractorInDitchException.class)
     public void testShouldThrowExceptionIfFallsOffPlateau() {
         Tractor tractor = new Tractor(field);
         MoveForward forward = new MoveForward(tractor);
-        forward.execute();
-        forward.execute();
-        forward.execute();
-        forward.execute();
-        forward.execute();
+        makeMoveTillTheEndOfField(forward);
 
         // this move makes tractor is out of the game field
         forward.execute();
+    }
+
+    private void makeMoveTillTheEndOfField(MoveForward forward) {
+        for (int i = 0; i <= field.getWidth(); i++) {
+            forward.execute();
+        }
     }
 
     @Test
