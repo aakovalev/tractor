@@ -1,6 +1,8 @@
 package ru.sbt.test.refactoring;
 
 import org.junit.Test;
+import ru.sbt.test.refactoring.commands.impls.Turn;
+import ru.sbt.test.refactoring.units.Tower;
 
 import static org.junit.Assert.assertEquals;
 import static ru.sbt.test.refactoring.Orientation.*;

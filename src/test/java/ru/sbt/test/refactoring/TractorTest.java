@@ -2,6 +2,9 @@ package ru.sbt.test.refactoring;
 
 import org.junit.Before;
 import org.junit.Test;
+import ru.sbt.test.refactoring.commands.impls.MoveForward;
+import ru.sbt.test.refactoring.commands.impls.Turn;
+import ru.sbt.test.refactoring.units.Tractor;
 
 import static org.junit.Assert.assertEquals;
 import static ru.sbt.test.refactoring.Orientation.*;

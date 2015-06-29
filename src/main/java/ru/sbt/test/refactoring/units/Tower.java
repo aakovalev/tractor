@@ -1,4 +1,10 @@
-package ru.sbt.test.refactoring;
+package ru.sbt.test.refactoring.units;
+
+import ru.sbt.test.refactoring.Field;
+import ru.sbt.test.refactoring.Orientation;
+import ru.sbt.test.refactoring.Position;
+import ru.sbt.test.refactoring.behaviours.Turnable;
+import ru.sbt.test.refactoring.behaviours.Positionable;
 
 import static ru.sbt.test.refactoring.Orientation.NORTH;
 

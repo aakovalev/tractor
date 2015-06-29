@@ -1,6 +1,7 @@
 package ru.sbt.test.refactoring;
 
 import org.junit.Test;
+import ru.sbt.test.refactoring.behaviours.impls.ClockwiseTurning;
 
 import static org.junit.Assert.assertEquals;
 import static ru.sbt.test.refactoring.Orientation.*;

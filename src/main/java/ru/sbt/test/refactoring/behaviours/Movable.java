@@ -1,4 +1,4 @@
-package ru.sbt.test.refactoring;
+package ru.sbt.test.refactoring.behaviours;
 
 public interface Movable {
     void move();

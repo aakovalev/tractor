@@ -1,4 +1,7 @@
-package ru.sbt.test.refactoring;
+package ru.sbt.test.refactoring.commands.impls;
+
+import ru.sbt.test.refactoring.behaviours.Turnable;
+import ru.sbt.test.refactoring.commands.Command;
 
 public class Turn implements Command {
     private Turnable turnable;

@@ -1,4 +1,7 @@
-package ru.sbt.test.refactoring;
+package ru.sbt.test.refactoring.behaviours.impls;
+
+import ru.sbt.test.refactoring.Orientation;
+import ru.sbt.test.refactoring.behaviours.Turnable;
 
 import static ru.sbt.test.refactoring.Orientation.*;
 
