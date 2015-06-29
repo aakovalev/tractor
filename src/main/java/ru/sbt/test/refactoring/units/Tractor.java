@@ -24,8 +24,8 @@ public class Tractor implements Positionable, Movable, Turnable {
 
     public Tractor(Field field, Position position, Orientation orientation) {
         this.field = field;
-        this.position = position;
         this.clockwiseTurning = new ClockwiseTurning(orientation);
+        setPosition(position);
     }
 
     @Override
@@ -39,14 +39,6 @@ public class Tractor implements Positionable, Movable, Turnable {
         } else if (WEST == getOrientation()) {
             setPosition(new Position(position.getX() - 1, position.getY()));
         }
-
-        if (isOutOfField()) {
-            throw new TractorInDitchException();
-        }
-    }
-
-    private boolean isOutOfField() {
-        return position.getX() > field.getWidth() || position.getY() > field.getHeight();
     }
 
     @Override
@@ -60,9 +52,17 @@ public class Tractor implements Positionable, Movable, Turnable {
 
     public void setPosition(Position newPosition) {
         this.position = newPosition;
+
+        if (isOutOfField()) {
+            throw new TractorInDitchException();
+        }
     }
 
     public Position getPosition() {
         return position;
+    }
+
+    private boolean isOutOfField() {
+        return position.getX() > field.getWidth() || position.getY() > field.getHeight();
     }
 }

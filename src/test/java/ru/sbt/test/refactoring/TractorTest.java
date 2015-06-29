@@ -67,7 +67,7 @@ public class TractorTest {
     }
 
     @Test (expected = TractorInDitchException.class)
-    public void testShouldThrowExceptionIfFallsOffPlateau() {
+    public void testShouldThrowExceptionIfFallsOffTheField() {
         Tractor tractor = new Tractor(new Field(3, 3), new Position(3, 0), EAST);
         MoveForward forward = new MoveForward(tractor);
 
@@ -81,5 +81,10 @@ public class TractorTest {
         tractor.setPosition(new Position(1, 2));
 
         assertEquals(new Position(1, 2), tractor.getPosition());
+    }
+
+    @Test (expected = TractorInDitchException.class)
+    public void testShouldThrowExceptionIfSetOutOfTheField() throws Exception {
+        new Tractor(new Field(2, 2), new Position(3, 3), NORTH);
     }
 }
