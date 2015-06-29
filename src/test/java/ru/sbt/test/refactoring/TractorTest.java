@@ -65,18 +65,11 @@ public class TractorTest {
 
     @Test (expected = TractorInDitchException.class)
     public void testShouldThrowExceptionIfFallsOffPlateau() {
-        Tractor tractor = new Tractor(field);
+        Tractor tractor = new Tractor(new Field(3, 3), new Position(3, 0), EAST);
         MoveForward forward = new MoveForward(tractor);
-        makeMoveTillTheEndOfField(forward);
 
         // this move makes tractor is out of the game field
         forward.execute();
-    }
-
-    private void makeMoveTillTheEndOfField(MoveForward forward) {
-        for (int i = 0; i <= field.getWidth(); i++) {
-            forward.execute();
-        }
     }
 
     @Test

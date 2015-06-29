@@ -1,12 +1,12 @@
 package ru.sbt.test.refactoring;
 
-import static ru.sbt.test.refactoring.Orientation.NORTH;
+import static ru.sbt.test.refactoring.Orientation.*;
 
 public class Tractor implements Positionable, Movable, Turnable {
 
     private Field field;
-    private Orientation orientation;
     private Position position;
+    private Turnable clockwiseTurning;
 
     public Tractor(Field field) {
         this(field, new Position(0, 0), NORTH);
@@ -19,18 +19,18 @@ public class Tractor implements Positionable, Movable, Turnable {
     public Tractor(Field field, Position position, Orientation orientation) {
         this.field = field;
         this.position = position;
-        this.orientation = orientation;
+        this.clockwiseTurning = new ClockwiseTurning(orientation);
     }
 
     @Override
     public void move() {
-        if (orientation == NORTH) {
+        if (NORTH == getOrientation()) {
             setPosition(new Position(position.getX(), position.getY() + 1));
-        } else if (orientation == Orientation.EAST) {
+        } else if (EAST == getOrientation()) {
             setPosition(new Position(position.getX() + 1, position.getY()));
-        } else if (orientation == Orientation.SOUTH) {
+        } else if (SOUTH == getOrientation()) {
             setPosition(new Position(position.getX(), position.getY() - 1));
-        } else if (orientation == Orientation.WEST) {
+        } else if (WEST == getOrientation()) {
             setPosition(new Position(position.getX() - 1, position.getY()));
         }
 
@@ -45,23 +45,11 @@ public class Tractor implements Positionable, Movable, Turnable {
 
     @Override
     public void turn() {
-        turnClockwise();
-    }
-
-    private void turnClockwise() {
-        if (orientation == NORTH) {
-            orientation = Orientation.EAST;
-        } else if (orientation == Orientation.EAST) {
-            orientation = Orientation.SOUTH;
-        } else if (orientation == Orientation.SOUTH) {
-            orientation = Orientation.WEST;
-        } else if (orientation == Orientation.WEST) {
-            orientation = NORTH;
-        }
+        clockwiseTurning.turn();
     }
 
     public Orientation getOrientation() {
-        return orientation;
+        return clockwiseTurning.getOrientation();
     }
 
     public void setPosition(Position newPosition) {
