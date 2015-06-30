@@ -37,6 +37,15 @@ public class MovementInDirectionTest {
         checkMovementTo(NORTH, new Position(2, 3));
     }
 
+    @Test
+    public void shouldMoveToSpecifiedDeltaInSpecifiedDirection() throws Exception {
+        int delta = 2;
+        MovementInDirection movement = new MovementInDirection(positioning, orientingTo(EAST) , delta);
+        movement.move();
+
+        assertEquals(new Position(4, 2), movement.getPosition());
+    }
+
     private void checkMovementTo(Orientation orientation, Position expectedPosition) {
         Orientable constantOrienting = orientingTo(orientation);
 
