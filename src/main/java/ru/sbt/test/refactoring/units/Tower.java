@@ -3,47 +3,37 @@ package ru.sbt.test.refactoring.units;
 import ru.sbt.test.refactoring.Field;
 import ru.sbt.test.refactoring.Orientation;
 import ru.sbt.test.refactoring.Position;
-import ru.sbt.test.refactoring.behaviours.Turnable;
 import ru.sbt.test.refactoring.behaviours.Positionable;
-
-import static ru.sbt.test.refactoring.Orientation.NORTH;
+import ru.sbt.test.refactoring.behaviours.Turnable;
+import ru.sbt.test.refactoring.behaviours.impls.ClockwiseTurning;
+import ru.sbt.test.refactoring.behaviours.impls.Positioning;
 
 public class Tower implements Positionable, Turnable {
-    private final Field field;
-    private Orientation orientation;
-    private Position position;
+    private Positioning positioning;
+    private ClockwiseTurning clockwiseTurning;
 
     public Tower(Field field, Position position, Orientation orientation) {
-        this.field = field;
-        this.position = position;
-        this.orientation = orientation;
+        this.positioning = new Positioning(field, position);
+        this.clockwiseTurning = new ClockwiseTurning(orientation);
     }
 
     @Override
     public void turn() {
-        if (orientation == NORTH) {
-            orientation = Orientation.EAST;
-        } else if (orientation == Orientation.EAST) {
-            orientation = Orientation.SOUTH;
-        } else if (orientation == Orientation.SOUTH) {
-            orientation = Orientation.WEST;
-        } else if (orientation == Orientation.WEST) {
-            orientation = NORTH;
-        }
+        clockwiseTurning.turn();
     }
 
     @Override
     public void setPosition(Position position) {
-        this.position = position;
+        positioning.setPosition(position);
     }
 
     @Override
     public Position getPosition() {
-        return position;
+        return positioning.getPosition();
     }
 
     @Override
     public Orientation getOrientation() {
-        return orientation;
+        return clockwiseTurning.getOrientation();
     }
 }

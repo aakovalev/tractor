@@ -44,19 +44,19 @@ public class TractorTest {
 
     @Test
     public void testShouldTurnAndMoveInTheRightDirection() {
-        Tractor tractor = new Tractor(field, NORTH);
+        Tractor tractor = new Tractor(field, new Position(1, 1), NORTH);
+
+        turnAndMove(tractor);
+        assertEquals(new Position(2, 1), tractor.getPosition());
+
+        turnAndMove(tractor);
+        assertEquals(new Position(2, 0), tractor.getPosition());
 
         turnAndMove(tractor);
         assertEquals(new Position(1, 0), tractor.getPosition());
 
         turnAndMove(tractor);
-        assertEquals(new Position(1, -1), tractor.getPosition());
-
-        turnAndMove(tractor);
-        assertEquals(new Position(0, -1), tractor.getPosition());
-
-        turnAndMove(tractor);
-        assertEquals(new Position(0, 0), tractor.getPosition());
+        assertEquals(new Position(1, 1), tractor.getPosition());
     }
 
     private void turnAndMove(Tractor tractor) {
@@ -66,7 +66,7 @@ public class TractorTest {
         moveForward.execute();
     }
 
-    @Test (expected = TractorInDitchException.class)
+    @Test (expected = InDitchException.class)
     public void testShouldThrowExceptionIfFallsOffTheField() {
         Tractor tractor = new Tractor(new Field(3, 3), new Position(3, 0), EAST);
         MoveForward forward = new MoveForward(tractor);
@@ -83,7 +83,7 @@ public class TractorTest {
         assertEquals(new Position(1, 2), tractor.getPosition());
     }
 
-    @Test (expected = TractorInDitchException.class)
+    @Test (expected = InDitchException.class)
     public void testShouldThrowExceptionIfSetOutOfTheField() throws Exception {
         new Tractor(new Field(2, 2), new Position(3, 3), NORTH);
     }
